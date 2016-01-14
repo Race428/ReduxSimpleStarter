@@ -1,26 +1,37 @@
 // Get me access to react
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 
+
 // import custom components
 import SearchBar from './components/search_bar';
+import VideoList from './components/video_list';
 
 // npm install --save youtube-api-search
 const API_KEY = 'AIzaSyB90AZGcP9JX5mqW2b6F-T-crfz6OY2pdY';
 
-YTSearch({key: API_KEY, term: 'surfboards'}, (data) => {
-  console.log(data);
-})
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      videos: []
+    };
 
-// Create a new component.  This component should produce some HTML
+    YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
+      this.setState({ videos });
+      // this.setState({ videos: videos})
+    });
+  }
 
-const App = () => {
-  return (
-    <div>
-      <SearchBar />
-    </div>
-    )
+  render(){
+    return (
+      <div>
+        <SearchBar />
+        <VideoList videos={this.state.videos} />
+      </div>
+    );
+  }
 }
 
 // Take this component's generated HTML and put it 
