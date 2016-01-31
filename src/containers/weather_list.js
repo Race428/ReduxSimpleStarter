@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import Chart from '../components/chart';
+import GoogleMap from '../components/google_map';
 
 class WeatherList extends Component {
   constructor(props) {
@@ -12,16 +13,19 @@ class WeatherList extends Component {
   renderWeather(cityData){
     const cityName = cityData.city.name;
     const countryName = cityData.city.country;
+    const { lon, lat } = cityData.city.coord;
+
     const temps = cityData.list.map( (weather) => weather.main.temp);
     const pressures = cityData.list.map( (weather) => weather.main.pressure);
     const humidities = cityData.list.map( (weather) => weather.main.humidity);
 
     return (
       <tr key={`${countryName}: ${cityName}`}>
-        <td>{cityName}</td>
-        <td><Chart data={temps} color="orange" units="Kelvin" /></td>
-        <td><Chart data={pressures} color="green" units="hPa"/></td>
-        <td><Chart data={humidities} color="black" units="%"/></td>
+        <td className="city-name">{cityName}</td>
+        <td className="weather-chart"><Chart data={temps} color="orange" units="Kelvin" /></td>
+        <td className="weather-chart"><Chart data={pressures} color="green" units="hPa"/></td>
+        <td className="weather-chart"><Chart data={humidities} color="black" units="%"/></td>
+        <td className="google-map"><GoogleMap lat={lat} lon={lon}/></td>
       </tr>
     );
   }
@@ -35,6 +39,7 @@ class WeatherList extends Component {
             <th>Temperature (Kelvin)</th>
             <th>Pressure (hPa)</th>
             <th>Humidity (%) </th>
+            <th>Google Map </th>
           </tr>
         </thead>
         <tbody>
