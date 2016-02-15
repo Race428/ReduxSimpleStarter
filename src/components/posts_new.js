@@ -50,6 +50,10 @@ function validate(values) {
     errors.title = "Enter a Username";
   }
 
+  if (values.title && values.title.length < 3){
+    errors.title = "Title must be greater than 3 characters";
+  }
+
   if (!values.categories){
     errors.categories = "Enter categories";
   }
