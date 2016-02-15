@@ -4,9 +4,16 @@ import { createPost } from '../actions/index';
 import { Link } from 'react-router';
 
 class PostsNew extends Component {
+
   static contextTypes = {
     router: PropTypes.object
   };
+
+  constructor(props){
+    super(props);
+    
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
   onSubmit(inputProps){
     this.props.createPost(inputProps)
@@ -23,7 +30,7 @@ class PostsNew extends Component {
     // const title = this.props.fields.title
 
     return (
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+      <form onSubmit={handleSubmit(this.onSubmit)}>
         <h3>Create a New Post</h3>
           <div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
             <label>Title</label>
