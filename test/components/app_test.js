@@ -4,11 +4,12 @@ import App from '../../src/components/app';
 describe('App' , () => {
   let component;
 
+  // Create an instance of app
   beforeEach(() => {
     component = renderComponent(App);
   });
 
-  it('renders div', () => {
-    expect(component).to.exist;
+  it('shows the correct text', () => {
+    expect(component).to.contain('React simple starter');
   });
 });
